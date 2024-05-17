@@ -1,9 +1,9 @@
 # LLM Chat
 ## Description
-LLM Chat run on flask app for educational (teacher-side) purpose (back-end), aiming at reliving the workload on evaluating student's assignments.
-The current supported functions including:
-1. Comment: Provide constructive and accurate feedback on the highlights and drawbacks of student's assignment (essay type).
-2. Grade: Grade the assignment (essay type) based on provided critera, and course related context
+LLM Chat runs on the Flask app (back-end) for educational (teacher-side) purposes, aiming at relieving the workload of evaluating students' assignments. The currently supported functions include:
+
+1. Comment: Provide constructive and accurate feedback on the highlights and drawbacks of the student's assignment (essay type).
+2. Grade: Grade the assignment (essay type) based on the provided criteria, and course-related context
 3. Mark: Mark the assignment (non-essay type) based on the question, solution, and marks of the solution.
-4. Question: Provide conversation with history based on teacher's query on the assignment (essay type).
-5. Summary: Summarized the keypoints and perform sentiment analysis of assignment (essay type)
+4. Question: Provide conversation with history based on the teacher's query on the assignment (essay type).
+5. Summary: Summarize the key points and perform sentiment analysis of the assignment (essay type)
