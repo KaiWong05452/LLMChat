@@ -1,10 +1,11 @@
 import os
 import logging_config
 import models
-import IOHandler
+import IO_handler
 from prompts import (commentPrompt, gradePrompt, markPrompt,
                      questionPrompt, summaryPrompt,
                      speech_feedbackPrompt, transcript_correctionPrompt)
+
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 from logging_config import configure_logger
@@ -24,7 +25,7 @@ chat = models.Interaction(os.getenv('AZURE_OPENAI_KEY'),
 @app.route('/comment', methods=['POST'])
 def comment():
     try:
-        inputs = IOHandler.extract_values(['all_criteria', 'journal', 'assignment context'])
+        inputs = IO_handler.extract_values(['all_criteria', 'journal', 'assignment context'])
 
         system_message = commentPrompt.system_prompt.format(criteria=inputs['all_criteria'],
                                                             assignment_context=inputs['assignment context'])
@@ -42,7 +43,7 @@ def comment():
 @app.route('/grade', methods=['POST'])
 def grade():
     try:
-        inputs = IOHandler.extract_values(['criteria', 'journal', 'assignment context'])
+        inputs = IO_handler.extract_values(['criteria', 'journal', 'assignment context'])
 
         system_message = gradePrompt.system_prompt.format(criteria=inputs['criteria'],
                                                           assignment_context=inputs['assignment context'])
@@ -60,7 +61,7 @@ def grade():
 @app.route('/question', methods=['POST'])
 def question():
     try:
-        inputs = IOHandler.extract_values(['journal', 'service_context',
+        inputs = IO_handler.extract_values(['journal', 'service_context',
                                            'history', 'question'])
 
         system_message = questionPrompt.system_prompt.format(conversation_history=inputs['history'],
@@ -80,7 +81,7 @@ def question():
 @app.route('/summaryNsentiment', methods=['POST'])
 def summaryNsentiment():
     try:
-        inputs = IOHandler.extract_values(['text', 'assignment_context'])
+        inputs = IO_handler.extract_values(['text', 'assignment_context'])
 
         system_message = summaryPrompt.system_prompt.format(assignment_context=inputs['assignment context'])
 
@@ -97,7 +98,7 @@ def summaryNsentiment():
 @app.route('/marking', methods=['POST'])
 def marking():
     try:
-        inputs = IOHandler.extract_values(['assignment context', 'question',
+        inputs = IO_handler.extract_values(['assignment context', 'question',
                                            'sample solution', 'total marks',
                                            'student solution'])
 
@@ -119,7 +120,7 @@ def marking():
 @app.route('/speech_feedback', methods=['POST'])
 def speech_feedback():
     try:
-        inputs = IOHandler.extract_values(['assignment context', 'visual analysis',
+        inputs = IO_handler.extract_values(['assignment context', 'visual analysis',
                                            'speech analysis', 'transcript'])
 
         system_message = speech_feedbackPrompt.system_prompt.format(assignment_context=inputs['assignment context'],
@@ -138,7 +139,7 @@ def speech_feedback():
 @app.route('/transcript_correction', methods=['POST'])
 def transcript_correction():
     try:
-        inputs = IOHandler.extract_values(['assignment context', "gaze",
+        inputs = IO_handler.extract_values(['assignment context', "gaze",
                                            "clear_view", "filler_word",
                                            "pronunciation_error",
                                            "transcript_count", 'transcript'])
