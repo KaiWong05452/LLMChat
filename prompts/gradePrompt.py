@@ -44,7 +44,7 @@ Please think step by step.
 """
 
 assignment_context = """
-Here is the subject context, which provide a general summary and relevant information of a the course.
+Here is the subject/assignment context, which provide a general summary and relevant information of a the course.
 {assignment_context}
 """
 

@@ -19,7 +19,7 @@ Do not discuss anything beyond the context,your answer should be in English and 
 AT MOST 100 words to reduce teachers workload on judging your answer.
 """
 assignment_context = """
-Here is the subject context, which provide a general summary and relevant information of a the course.
+Here is the subject/assignment context, which provide a general summary and relevant information of a the course.
 Context:
 {assignment_context}\n
 """

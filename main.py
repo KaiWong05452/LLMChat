@@ -2,7 +2,9 @@ import os
 import logging_config
 import models
 import IOHandler
-from prompts import commentPrompt, gradePrompt, markPrompt, questionPrompt, summaryPrompt
+from prompts import (commentPrompt, gradePrompt, markPrompt,
+                     questionPrompt, summaryPrompt,
+                     speech_feedbackPrompt, transcript_correctionPrompt)
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 from logging_config import configure_logger
@@ -107,6 +109,52 @@ def marking():
         user_message = markPrompt.user_prompt.format(assignment=inputs['student solution'])
 
         response = chat.invoke(system_message, user_message, output_format=markPrompt.parser)
+
+        return jsonify([response])
+
+    except Exception as e:
+        logging_config.error_logger(Exception, e)
+
+
+@app.route('/speech_feedback', methods=['POST'])
+def speech_feedback():
+    try:
+        inputs = IOHandler.extract_values(['assignment context', 'visual analysis',
+                                           'speech analysis', 'transcript'])
+
+        system_message = speech_feedbackPrompt.system_prompt.format(assignment_context=inputs['assignment context'],
+                                                                    visual_analysis=inputs['visual analysis'],
+                                                                    speech_analysis=inputs['speech analysis'])
+        user_message = speech_feedbackPrompt.user_prompt.format(transcript=inputs['transcript'])
+
+        response = chat.invoke(system_message, user_message, output_format='str')
+
+        return jsonify({'speech feedback': response})
+
+    except Exception as e:
+        logging_config.error_logger(Exception, e)
+
+
+@app.route('/transcript_correction', methods=['POST'])
+def transcript_correction():
+    try:
+        inputs = IOHandler.extract_values(['assignment context', "gaze",
+                                           "clear_view", "filler_word",
+                                           "pronunciation_error",
+                                           "transcript_count", 'transcript'])
+
+        system_message = transcript_correctionPrompt.system_prompt.format(
+            assignment_context=inputs['assignment context'],
+            gaze=inputs['gaze'],
+            clear_view=inputs['clear_view'],
+            filler_word=inputs['filler_word'],
+            pronunciation_error=inputs['pronunciation_error'],
+            transcript_count=inputs['transcript_count']
+        )
+
+        user_message = transcript_correctionPrompt.user_prompt.format(transcript=inputs['transcript'])
+
+        response = chat.invoke(system_message, user_message, output_format=transcript_correctionPrompt.parser)
 
         return jsonify([response])
 

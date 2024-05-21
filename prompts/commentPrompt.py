@@ -19,7 +19,7 @@ Remember that you should ONLY talking about your feedback, NO grade should be gi
 Make sure that your feedback is accuracy, constructive, and professional.
 """
 assignment_context = """
-Here is the subject context, which provide a general summary and relevant information of a the course.
+Here is the subject/assignment context, which provide a general summary and relevant information of a the course.
 {assignment_context}
 """
 criteria = """

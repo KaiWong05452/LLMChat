@@ -17,7 +17,7 @@ You need to evaluate and mark the student's solution based on the question and s
 The sample solution is correct in terms of content. It would receive full marks.
 """
 assignment_context = """
-Here is the subject context, which provide a general summary and relevant information of a the course.
+Here is the subject/assignment context, which provide a general summary and relevant information of a the course.
 {assignment_context}
 """
 question = """
