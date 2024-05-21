@@ -100,7 +100,7 @@ def marking():
     try:
         inputs = IO_handler.extract_values(['assignment context', 'question',
                                            'sample solution', 'total marks',
-                                           'student solution'])
+                                            'student solution'])
 
         system_message = markPrompt.system_prompt.format(assignment_context=inputs['assignment context'],
                                                          question=inputs['question'],
@@ -120,12 +120,19 @@ def marking():
 @app.route('/speech_feedback', methods=['POST'])
 def speech_feedback():
     try:
-        inputs = IO_handler.extract_values(['assignment context', 'visual analysis',
-                                           'speech analysis', 'transcript'])
+        inputs = IO_handler.extract_values(['assignment context', 'gaze',
+                                           'clear_view', 'filler_word',
+                                            'pronunciation_error',
+                                            'transcript_count',  'transcript'])
 
-        system_message = speech_feedbackPrompt.system_prompt.format(assignment_context=inputs['assignment context'],
-                                                                    visual_analysis=inputs['visual analysis'],
-                                                                    speech_analysis=inputs['speech analysis'])
+        system_message = speech_feedbackPrompt.system_prompt.format(
+            assignment_context=inputs['assignment context'],
+            gaze=inputs['gaze'],
+            clear_view=inputs['clear_view'],
+            filler_word=inputs['filler_word'],
+            pronunciation_error=inputs['pronunciation_error'],
+            transcript_count=inputs['transcript_count']
+        )
         user_message = speech_feedbackPrompt.user_prompt.format(transcript=inputs['transcript'])
 
         response = chat.invoke(system_message, user_message, output_format='str')
@@ -139,19 +146,10 @@ def speech_feedback():
 @app.route('/transcript_correction', methods=['POST'])
 def transcript_correction():
     try:
-        inputs = IO_handler.extract_values(['assignment context', "gaze",
-                                           "clear_view", "filler_word",
-                                           "pronunciation_error",
-                                           "transcript_count", 'transcript'])
+        inputs = IO_handler.extract_values(['assignment context', 'transcript'])
 
-        system_message = transcript_correctionPrompt.system_prompt.format(
-            assignment_context=inputs['assignment context'],
-            gaze=inputs['gaze'],
-            clear_view=inputs['clear_view'],
-            filler_word=inputs['filler_word'],
-            pronunciation_error=inputs['pronunciation_error'],
-            transcript_count=inputs['transcript_count']
-        )
+        system_message = (transcript_correctionPrompt.system_prompt.
+                          format(assignment_context=inputs['assignment context']))
 
         user_message = transcript_correctionPrompt.user_prompt.format(transcript=inputs['transcript'])
 
