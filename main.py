@@ -81,7 +81,7 @@ def question():
 @app.route('/summaryNsentiment', methods=['POST'])
 def summaryNsentiment():
     try:
-        inputs = IO_handler.extract_values(['text', 'assignment_context'])
+        inputs = IO_handler.extract_values(['text', 'assignment context'])
 
         system_message = summaryPrompt.system_prompt.format(assignment_context=inputs['assignment context'])
 
