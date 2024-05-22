@@ -5,7 +5,7 @@ import IO_handler
 from prompts import (commentPrompt, gradePrompt, markPrompt,
                      questionPrompt, summaryPrompt,
                      speech_feedbackPrompt, transcript_correctionPrompt)
-
+from conversation import conversation_history
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 from logging_config import configure_logger
@@ -64,7 +64,9 @@ def question():
         inputs = IO_handler.extract_values(['journal', 'service_context',
                                            'history', 'question'])
 
-        system_message = questionPrompt.system_prompt.format(conversation_history=inputs['history'],
+        string_history = conversation_history.extract_conversation_history(inputs['history'])
+
+        system_message = questionPrompt.system_prompt.format(conversation_history=string_history,
                                                              assignment_context=inputs['service_context'],
                                                              question=inputs['question'])
 
