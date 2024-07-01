@@ -11,3 +11,6 @@ def install_chatgpt_packages():
     install('langchain-openai')
     install('flask')
     install('python-dotenv')
+    install('pypdf')
+    install('python-pptx')
+    install('python-docx')

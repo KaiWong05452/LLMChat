@@ -14,8 +14,7 @@ from langchain_core.runnables import RunnablePassthrough
 
 
 class Interaction:
-    def __init__(self, api_key, endpoint, openai_api_version="2023-05-15", deployment_name="aireasgpt4", temperature=0,
-                 model_version="0125-Preview"):
+    def __init__(self, api_key, endpoint, openai_api_version, deployment_name, temperature=0, model_version=None):
         os.environ["AZURE_OPENAI_API_KEY"] = api_key
         os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint
 

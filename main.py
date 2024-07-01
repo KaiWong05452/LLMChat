@@ -1,15 +1,19 @@
 import os
+import json
 import logging_config
 import models
 import IO_handler
 from prompts import (commentPrompt, gradePrompt, markPrompt,
                      questionPrompt, summaryPrompt,
-                     speech_feedbackPrompt, transcript_correctionPrompt)
+                     speech_feedbackPrompt, transcript_correctionPrompt,
+                     DocumentAnalyzePrompt, questionGenerationPrompt)
 from conversation import conversation_history
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 from logging_config import configure_logger
 from arg_parser import parse_args
+from extract import DocumentExtractor
+from export_questions import exporter
 
 load_dotenv()
 
@@ -19,7 +23,11 @@ args = parse_args()
 app = Flask(__name__)
 
 chat = models.Interaction(os.getenv('AZURE_OPENAI_KEY'),
-                          os.getenv('AZURE_OPENAI_ENDPOINT'))
+                          os.getenv('AZURE_OPENAI_ENDPOINT'),
+                          "2023-05-15",
+                          "aireasgpt4",
+                          temperature=0,
+                          model_version="0125-Preview")
 
 
 @app.route('/comment', methods=['POST'])
@@ -158,6 +166,49 @@ def transcript_correction():
         response = chat.invoke(system_message, user_message, output_format=transcript_correctionPrompt.parser)
 
         return jsonify([response])
+
+    except Exception as e:
+        logging_config.error_logger(Exception, e)
+
+
+@app.route('/document_analyze', methods=['POST'])
+def document_analyze():
+    try:
+        inputs = 1
+    except Exception as e:
+        logging_config.error_logger(Exception, e)
+
+
+@app.route('/question_generation', methods=['POST'])
+def question_generation():
+    try:
+        file, inputs = IO_handler.extract_form_data('subject_context',
+                                                    ['difficulty',
+                                                     'question_type',
+                                                     'num_questions',
+                                                     'num_choices',
+                                                     'requirement'])
+
+        document = DocumentExtractor.save_file_and_extract(file, 'uploads')
+
+        system_message = questionGenerationPrompt.system_prompt.format(
+            difficulty=inputs['difficulty'],
+            question_type=inputs['question_type'],
+            num_questions=inputs['num_questions'],
+            num_choices=inputs['num_choices'])
+
+        user_message = questionGenerationPrompt.user_prompt.format(requirement=inputs['requirement'])
+
+        user_message = user_message + questionGenerationPrompt.subject_context + document
+
+        response = chat.invoke(system_message, user_message, output_format=questionGenerationPrompt.parser)
+
+        response_exporter = exporter.QuestionExporter(response, file.filename, 'output')
+
+        response_exporter.export_teacher_document()
+        response_exporter.export_student_document()
+
+        return jsonify(response)
 
     except Exception as e:
         logging_config.error_logger(Exception, e)

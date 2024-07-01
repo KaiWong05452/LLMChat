@@ -8,6 +8,17 @@ def extract_values(keys):
     return values
 
 
+def extract_form_data(document_key, value_keys):
+    file = request.files.get(document_key, None)
+
+    values = {}
+
+    for key in value_keys:
+        values[key] = request.form.get(key, None)
+
+    return file, values
+
+
 def remove_special_characters(s):
     s = s.replace('\n', '\\n')
     s = s.replace('"', '\\"')
