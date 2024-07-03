@@ -17,6 +17,7 @@ The response has to be concise and factual; the tone should be professional and 
 Your answer should strictly base on the provided assignment and the subject context, 
 Do not discuss anything beyond the context,your answer should be in English and limit 
 AT MOST 100 words to reduce teachers workload on judging your answer.
+Meanwhile, your answer should be in html format to make it easier for the teacher to read.
 """
 assignment_context = """
 Here is the subject/assignment context, which provide a general summary and relevant information of a the course.
@@ -35,7 +36,12 @@ New question:
 """
 
 output_format = """
-Respond using Markdown.
+The format in which the response should be generated. For this prompt, the response should be in HTML format.
+Do not add or use newline character, the slash with n in the html format, since the html can newline by itself.
+IF contains response with heading, sub-heading, and points, please follow the below format:
+For headings (h3): Use the class “text-lg font-semibold text-gray-700”.
+For sub-headings (h4): Use the class “text-md font-semibold text-gray-700”.
+For points within an unordered list (ul): Use the class “text-md font-base text-gray-700”.
 """
 
 system_message = template.create_system_message(role=role, objective=objective,

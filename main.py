@@ -42,6 +42,8 @@ def comment():
 
         response = chat.invoke(system_message, user_message, output_format="str")
 
+        response = IO_handler.remove_newlines_and_html_tag(response)
+
         return jsonify({'comment': response})
 
     except Exception as e:
@@ -81,6 +83,8 @@ def question():
         user_message = questionPrompt.user_prompt.format(assignment=inputs['journal'])
 
         response = chat.invoke(system_message, user_message, output_format="str")
+
+        response = IO_handler.remove_newlines_and_html_tag(response)
 
         return jsonify({'answer': response})
 

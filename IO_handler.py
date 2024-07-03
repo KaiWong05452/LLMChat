@@ -24,3 +24,11 @@ def remove_special_characters(s):
     s = s.replace('"', '\\"')
     s = s.replace('\t', '\\t')
     return s
+
+
+def remove_newlines_and_html_tag(html_string):
+    html_string = html_string.replace("\n", "")
+    html_string = html_string.replace("```html", "")
+    html_string = html_string.replace("```", "")
+    return html_string
+

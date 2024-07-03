@@ -60,6 +60,7 @@ Here is the user input:
 {assignment}
 """
 
+
 user_prompt = PromptTemplate(
     template=user_message,
     input_variables=["assignment"]

@@ -18,7 +18,7 @@ The current LLMchat API provides the following endpoints:
 
 - Method: POST
 - Input: JSON with keys 'all_criteria', 'journal', 'assignment context'
-- Output: JSON with key 'comment'
+- Output: JSON with key 'comment' , the comment is in HTML format
 
 #### Input sample
 ```json
@@ -39,7 +39,7 @@ The current LLMchat API provides the following endpoints:
 #### Output sample
 ```json
 {
-    "comment": "### Feedback on the Assignment\n\n#### Strengths:\n- **Introduction and Context:** You have provided a clear and engaging introduction to your service-learning project. The context of promoting digital literacy in developing societies, specifically in Cambodia, is well-established. This sets a solid foundation for understanding the purpose and significance of your project.\n- **Mission and Goals:** The articulation of your team's mission to empower Cambodian students by equipping them with digital skills, fostering creativity, and nurturing a love for learning is commendable. It demonstrates a comprehensive understanding of the project's objectives.\n- **Adaptability:** Mentioning the adaptation of teaching methods to address unique challenges in local schools and communities shows an awareness of the need for flexibility in service projects. This adaptability is crucial for the success of such initiatives. ...........................This will not only enhance the quality of your assignment but also demonstrate a comprehensive and reflective engagement with the service-learning experience."
+    "comment": "<div>  <h3 class=\"text-lg font-semibold text-gray-700\">Feedback on Service-Learning Assignment</h3>  <h4 class=\"text-md font-semibold text-gray-700\">Strengths</h4>  <ul class=\"text-md font-base text-gray-700\">    <li>Excellent introduction that sets a clear and engaging context for the service-learning project in Cambodia.</li>    <li>Good identification of the project's mission, focusing on empowering Cambodian students through digital literacy.</li>    <li>Recognition of the importance of digital literacy in bridging the digital divide is well articulated.</li>  </ul>  <h4 class=\"text-md font-semibold text-gray-700\">Areas for Improvement</h4>  <ul class=\"text-md font-base text-gray-700\">    <li>Expand on how the academic content of the subject was linked to the service-learning project. Detailing the theoretical concepts taught and how they were applied in practice would strengthen this section.</li>    <li>Include a more thorough evaluation of the group's performance. Reflect on the strengths, weaknesses, and areas for improvement in the service project to provide a more insightful analysis.</li>    <li>Elaborate on the problem-solving strategies used during the project. Discuss specific challenges encountered and how they were resolved.</li>    <li>Enhance the section on communication by detailing how your team effectively communicated with the service recipients, including examples of active listening and sensitivity to their needs.</li>    <li>Deepen the reflection on empathy by sharing personal stories or observations that demonstrate a genuine understanding and concern for the struggles faced by the less fortunate in Cambodia.</li>    <li>Provide a more detailed reflection on the group's role and responsibilities in society, including the personal and social implications of the service project. Offer thoughtful analysis on the impact of your work.</li>  </ul></div>"
 }
 ```
 
