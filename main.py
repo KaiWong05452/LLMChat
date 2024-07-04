@@ -1,4 +1,6 @@
 import os
+import setup
+setup.install_chatgpt_packages()
 import json
 import logging_config
 import models

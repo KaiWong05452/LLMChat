@@ -1,6 +1,4 @@
 import setup
-
-setup.install_chatgpt_packages()
 import os
 from langchain_openai import AzureChatOpenAI
 from langchain_community.callbacks import get_openai_callback
