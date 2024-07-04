@@ -1,7 +1,6 @@
 import setup
 import os
 from langchain_openai import AzureChatOpenAI
-from langchain_community.callbacks import get_openai_callback
 from langchain_core.output_parsers import StrOutputParser
 from langchain.prompts import (
     ChatPromptTemplate,
