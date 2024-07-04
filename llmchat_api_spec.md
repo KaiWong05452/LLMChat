@@ -115,7 +115,7 @@ The current LLMchat API provides the following endpoints:
 
 - Method: POST
 - Input: JSON with keys 'journal', 'service_context', 'history', 'question'
-- Output: JSON with key 'answer'
+- Output: JSON with key 'answer' , the answer is in HTML format
 
 #### Input sample
 ```json
@@ -124,8 +124,7 @@ The current LLMchat API provides the following endpoints:
     "service_context": "It's about education.",
     "history": [{ "question": "What is it talking about?", "answer": "The journal is discussing the student's realization that quality teaching requires more than just reading the textbook and understanding the content. It highlights the importance of catching students' attention and the preparations needed for a 6-session course. The student gained this insight through a service-learning course and a visit to the Baptist Oi Kwan center. The journal does not provide specific details about the volunteering service experiences." },
     
-    {"question": "How can it write better?", "answer" : "To improve the writing, the student could provide specific details about their volunteering service experiences and how it relates to their understanding of quality teaching. Additionally, they could elaborate on the preparations needed for a 6-session course and how they applied these preparations during their teaching lessons. Adding more specific examples and reflecting on the impact of their actions would enhance the journal's clarity and depth."}],
-    "question": "What is the best part of the journal"
+    {"question": "<h3 class=\"text-lg font-semibold text-gray-700\">Mentioned Elements in the Journal</h3><ul class=\"text-md font-base text-gray-700\"><li>Personal experience with various teachers.</li><li>Misconception about quality teaching being easy.</li><li>Importance of catching students' attention.</li><li>Preparations required for a 6-session course.</li><li>Service-learning course providing new insights into quality teaching.</li><li>Visit to the Baptist Oi Kwan centre for trial teaching lessons.</li><li>Observation of students' behavior in the classroom.</li></ul>"
 }
 ```
 #### Output sample
