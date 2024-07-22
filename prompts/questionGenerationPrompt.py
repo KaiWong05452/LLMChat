@@ -29,21 +29,28 @@ The question type is:
 
 If question type is multiple choice, please refer to the following format:
 Format:
-	"Question"
-	A.
-	B.
-	C.
-	D.
 
-	"Correct Answer"
-    "Explanation"
+    "Answers": 
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    ,
+    "Correct_answer": "",
+    "Explanation": "",
+    "Question": ""
+
     
 If question type is True/False, please refer to the following format:
 Format:
-    "Question"
-    "Answers"
-    "Correct Answer"
-    "Explanation"
+
+    "Answers": 
+        "Answer": "True / False",
+    ,
+    "Correct_answer": "",
+    "Explanation": "",
+    "Question": ""
+
 """
 
 
