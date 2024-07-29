@@ -26,10 +26,10 @@ app = Flask(__name__)
 
 chat = models.Interaction(os.getenv('AZURE_OPENAI_KEY'),
                           os.getenv('AZURE_OPENAI_ENDPOINT'),
-                          "2023-05-15",
-                          "aireasgpt4",
+                          os.getenv('AZURE_OPENAI_API_VERSION'),
+                          os.getenv('AZURE_OPENAI_DEPLOYMENT_NAME'),
                           temperature=0,
-                          model_version="0125-Preview")
+                          model_version=os.getenv('AZURE_OPENAI_MODEL_VERSION'))
 
 
 @app.route('/comment', methods=['POST'])
@@ -193,9 +193,19 @@ def question_generation():
                                                      'question_type',
                                                      'num_questions',
                                                      'num_choices',
-                                                     'requirement'])
+                                                     'requirement',
+                                                     'file_name'])
 
-        document = DocumentExtractor.save_file_and_extract(file, 'uploads')
+        file_name = inputs['file_name'].rsplit('.', 1)[0] if inputs['file_name'] else 'assignment'
+
+        if not file and not inputs['requirement']:
+            return jsonify({'error': 'Please upload a file or fill in the requirement field'}), 400
+
+        if file:
+            document = DocumentExtractor.save_file_and_extract(file, 'uploads')
+
+        else:
+            document = ""  # default value
 
         system_message = questionGenerationPrompt.system_prompt.format(
             difficulty=inputs['difficulty'],
@@ -209,7 +219,9 @@ def question_generation():
 
         response = chat.invoke(system_message, user_message, output_format=questionGenerationPrompt.parser)
 
-        response_exporter = exporter.QuestionExporter(response, file.filename, 'output')
+        print(response)
+
+        response_exporter = exporter.QuestionExporter(response, file_name, 'output')
 
         response_exporter.export_teacher_document()
         response_exporter.export_student_document()

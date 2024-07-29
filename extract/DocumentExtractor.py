@@ -16,9 +16,21 @@ def extract_text_from_file(file_path):
         return extract_text_from_pptx(file_path)
     elif file_extension == '.docx':
         return extract_text_from_docx(file_path)
+    elif file_extension == '.txt':
+        return extract_text_from_txt(file_path)
     else:
         # If the file extension is not supported, return None
         return None
+
+
+# Function to extract text from a txt file
+def extract_text_from_txt(file_path):
+    # Open the txt file
+    with open(file_path, 'r', encoding='utf-8') as file:
+        # Read the contents of the file
+        text = file.read()
+    # Return the extracted text
+    return text
 
 
 # Function to extract text from a PDF file

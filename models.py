@@ -9,7 +9,6 @@ from langchain.prompts import (
 )
 from langchain_core.runnables import RunnablePassthrough
 
-
 class Interaction:
     def __init__(self, api_key, endpoint, openai_api_version, deployment_name, temperature=0, model_version=None):
         os.environ["AZURE_OPENAI_API_KEY"] = api_key
