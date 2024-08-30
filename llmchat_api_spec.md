@@ -254,7 +254,7 @@ No output sample yet
 
 - Method: POST
 - Input file format: pdf, pptx, docx. 
-- Input keys: Form data with file key 'subject_context', and text keys: 'difficulty', 'question_type', 'num_questions', 'num_choices', 'requirement'.
+- Input keys: Form data with file key 'subject_context', and text keys: 'difficulty', 'question_type', 'num_questions', 'num_choices', 'requirement', 'file_name'.
 - Output Json: JSON with the generated questions, with keys of 'Question', 'Answers', 'Correct_answer', 'Explanation'.
 - Output file: Two question documents in docx format: one for the teacher and one for the student.
 - Storage: The uploaded file is stored in the 'uploads' folder, The generated question documents are stored in the 'output' folder.
@@ -269,7 +269,8 @@ form-data
     "question_type": "multiple choice",
     "num_questions": "2",
     "num_choices": "4",
-    "requirement": "You may come up with coding, memorize knowledge questions, noted that the generated quesition cannot exceed the subject_context range."
+    "requirement": "You may come up with coding, memorize knowledge questions, noted that the generated quesition cannot exceed the subject_context range.",
+    "file_name": "Java Programming",
 }
 ```
 #### Output sample

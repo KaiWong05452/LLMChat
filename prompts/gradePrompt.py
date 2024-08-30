@@ -53,6 +53,16 @@ Please provide a separate grading assessment for the following criterion.
 {criteria}
 """
 
+output_format_hint = """
+Please output the JSON in the following format:
+"somthing" should be an array, where each element is an object containing the keys "key1", "key2", and "key3", 
+each with their respective values.
+
+Do not output the JSON in the following format:
+"somthing" should not be an object containing multiple keys, where each key corresponds to an object that contains 
+the keys "key1", "key2", and "key3".
+"""
+
 
 class OutputFormat(BaseModel):
     Criterion: str = Field(description="Summarize the criterion as one word")
@@ -69,7 +79,8 @@ parser = JsonOutputParser(pydantic_object=OutputFormat)
 system_message = template.create_system_message(role=role,
                                                 chain_of_thought=chain_of_thought,
                                                 assignment_context=assignment_context,
-                                                grading_rubrics=rubrics)
+                                                grading_rubrics=rubrics,
+                                                output_format_hint=output_format_hint,)
 
 system_prompt = PromptTemplate(
     template=system_message+"\n{output_format}",
